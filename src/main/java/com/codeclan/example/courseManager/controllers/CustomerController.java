@@ -18,7 +18,8 @@ public class CustomerController {
     public ResponseEntity getAllCustomersAndFilters(
             @RequestParam(required = false, name = "customerName") String customerName,
             @RequestParam(required = false, name = "customerTown") String customerTown,
-            @RequestParam(required = false, name = "age") Integer age
+            @RequestParam(required = false, name = "age") Integer age,
+            @RequestParam(required = false, name = "courseName") String courseName
     ){
         if (customerName != null) {
             return new ResponseEntity(customerRepository.findCustomerByName(customerName), HttpStatus.OK);
@@ -28,6 +29,15 @@ public class CustomerController {
         }
         if (age != null) {
             return new ResponseEntity(customerRepository.findCustomerByAge(age), HttpStatus.OK);
+        }
+        if (courseName != null){
+            return new ResponseEntity(customerRepository.findCustomerByBookingsCourseName(courseName), HttpStatus.OK);
+        }
+        if (courseName != null && customerTown != null){
+            return new ResponseEntity(customerRepository.findCustomerByTownAndBookingsCourseName(customerTown, courseName), HttpStatus.OK);
+        }
+        if (courseName != null && customerTown != null && age != null){
+            return new ResponseEntity(customerRepository.findCustomerByAgeGreaterThanAndTownAndBookingsCourseName(age, customerTown, courseName), HttpStatus.OK);
         }
         return new ResponseEntity(customerRepository.findAll(), HttpStatus.OK);
     }
