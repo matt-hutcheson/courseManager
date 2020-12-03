@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Locale;
+
 @RestController
 public class CourseController {
 
@@ -20,7 +22,12 @@ public class CourseController {
             @RequestParam(required = false, name = "rating")Integer rating,
             @RequestParam(required = false, name = "customerName")String customerName
     ){
+        if (customerName != null) {
+            String lowerCaseName = customerName.toLowerCase();
+            return new ResponseEntity(courseRepository.findCourseByBookingsCustomerName(lowerCaseName), HttpStatus.OK);
+        }
         if (courseName != null) {
+            String lowerCaseName = courseName.toLowerCase();
             return new ResponseEntity(courseRepository.findCourseByName(courseName), HttpStatus.OK);
         }
         if (courseTown != null) {
@@ -29,9 +36,7 @@ public class CourseController {
         if (rating != null) {
             return new ResponseEntity(courseRepository.findCourseByRating(rating), HttpStatus.OK);
         }
-        if (rating != null) {
-            return new ResponseEntity(courseRepository.findCourseByBookingsCustomerName(customerName), HttpStatus.OK);
-        }
+
         return new ResponseEntity(courseRepository.findAll(), HttpStatus.OK);
     }
 }
