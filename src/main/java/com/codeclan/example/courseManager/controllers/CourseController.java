@@ -28,10 +28,11 @@ public class CourseController {
         }
         if (courseName != null) {
             String lowerCaseName = courseName.toLowerCase();
-            return new ResponseEntity(courseRepository.findCourseByName(courseName), HttpStatus.OK);
+            return new ResponseEntity(courseRepository.findCourseByName(lowerCaseName), HttpStatus.OK);
         }
         if (courseTown != null) {
-            return new ResponseEntity(courseRepository.findCourseByTown(courseTown), HttpStatus.OK);
+            String lowerCaseTown = courseTown.toLowerCase();
+            return new ResponseEntity(courseRepository.findCourseByTown(lowerCaseTown), HttpStatus.OK);
         }
         if (rating != null) {
             return new ResponseEntity(courseRepository.findCourseByRating(rating), HttpStatus.OK);
