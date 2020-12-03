@@ -1,6 +1,5 @@
 package com.codeclan.example.courseManager.models;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
