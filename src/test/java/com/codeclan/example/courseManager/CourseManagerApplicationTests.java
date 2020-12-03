@@ -33,6 +33,7 @@ class CourseManagerApplicationTests {
 	@Autowired
 	BookingRepository bookingRepository;
 
+
 	@Test
 	public void canFindCourseByRating(){
 		Course java = new Course("Intro To Java", "Inverness", 4);
@@ -53,7 +54,7 @@ class CourseManagerApplicationTests {
 		Booking booking1 = new Booking("12/21", java, jeannie);
 		bookingRepository.save(booking1);
 		List<Booking> results = bookingRepository.findBookingsByCourseName("Intro To Java");
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 	}
 
 	@Test
@@ -85,7 +86,7 @@ class CourseManagerApplicationTests {
 		Booking booking1 = new Booking("11/21", java, jeannie);
 		bookingRepository.save(booking1);
 		List<Booking> results = bookingRepository.findBookingsByDate("12/21");
-		assertEquals(3, results.size());
+		assertEquals(4, results.size());
 	}
 
 	@Test
@@ -101,7 +102,23 @@ class CourseManagerApplicationTests {
 		Booking booking1 = new Booking("11/21", java, jeannie);
 		bookingRepository.save(booking1);
 		List<Customer> results = customerRepository.findCustomerByTownAndBookingsCourseName("Falkirk", "Intro To Java");
-		assertEquals(4, results.size());
+		assertEquals(5, results.size());
+	}
+
+	@Test
+	public void canFindCustomerGreaterThanAgeAndFromTownAndOnCourse(){
+		Customer bob = new Customer("Bob", "Stirling", 36);
+		customerRepository.save(bob);
+		Customer jeannie = new Customer("Jeannie", "Falkirk", 25);
+		customerRepository.save(jeannie);
+		Course java = new Course("Intro To Java", "Inverness", 4);
+		courseRepository.save(java);
+		Booking booking = new Booking("12/21", java, bob);
+		bookingRepository.save(booking);
+		Booking booking1 = new Booking("11/21", java, jeannie);
+		bookingRepository.save(booking1);
+		List<Customer> results = customerRepository.findCustomerByAgeGreaterThanAndTownAndBookingsCourseName(26, "Stirling", "Intro To Java");
+		assertEquals(1, results.size());
 	}
 
 }
