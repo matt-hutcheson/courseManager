@@ -28,4 +28,5 @@ class CourseManagerApplicationTests {
 		assertEquals("Intro To Java", courseRepository.findCourseByRating(Rating.FOUR).get(0).getName());
 	}
 
+
 }
