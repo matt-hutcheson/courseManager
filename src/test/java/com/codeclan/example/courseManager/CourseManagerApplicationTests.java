@@ -17,4 +17,5 @@ class CourseManagerApplicationTests {
 		assertEquals("English", findCourseByRating(4).get(0).getName());
 	}
 
+
 }
