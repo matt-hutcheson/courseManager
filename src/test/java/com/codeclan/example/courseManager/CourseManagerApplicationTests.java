@@ -56,4 +56,20 @@ class CourseManagerApplicationTests {
 		assertEquals(2, results.size());
 	}
 
+	@Test
+	public void canGetCourseByCustomerName(){
+		Customer bob = new Customer("Bob", "Stirling", 36);
+		customerRepository.save(bob);
+		Customer jeannie = new Customer("Jeannie", "Falkirk", 25);
+		customerRepository.save(jeannie);
+		Course java = new Course("Intro To Java", "Inverness", 4);
+		courseRepository.save(java);
+		Booking booking = new Booking("12/21", java, bob);
+		bookingRepository.save(booking);
+		Booking booking1 = new Booking("12/21", java, jeannie);
+		bookingRepository.save(booking1);
+		List<Course> results = courseRepository.findCourseByBookingsCustomerName("Bob");
+		assertEquals("Intro To Java", results.get(0).getName());
+	}
+
 }
