@@ -22,17 +22,21 @@ public class Course {
     private String town;
 
     @Column
-    private Rating rating;
+    private Integer rating;
 
-    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<Booking> bookings;
 
-    public Course(String name, String town, Rating rating) {
+    public Course(String name, String town, Integer rating) {
         this.name = name;
         this.town = town;
         this.rating = rating;
         this.bookings = new ArrayList<>();
+    }
+
+    public Course(){
+
     }
 
     public String getName() {
@@ -51,11 +55,11 @@ public class Course {
         this.town = town;
     }
 
-    public Rating getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Rating rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

@@ -1,7 +1,6 @@
 package com.codeclan.example.courseManager;
 
 import com.codeclan.example.courseManager.models.Course;
-import com.codeclan.example.courseManager.models.Rating;
 import com.codeclan.example.courseManager.repositories.CourseRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +23,9 @@ class CourseManagerApplicationTests {
 
 	@Test
 	public void canFindCourseByRating(){
-		Course java = new Course("Intro To Java", "Inverness", Rating.FOUR);
-		assertEquals("Intro To Java", courseRepository.findCourseByRating(Rating.FOUR).get(0).getName());
+		Course java = new Course("Intro To Java", "Inverness", 4);
+		courseRepository.save(java);
+		assertEquals("Intro To Java", courseRepository.findCourseByRating(4).get(0).getName());
 	}
 
 
