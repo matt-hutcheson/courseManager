@@ -13,7 +13,7 @@ public class CourseController {
 
     @Autowired
     CourseRepository courseRepository;
-    @GetMapping(value = "")
+    @GetMapping(value = "/courses")
     public ResponseEntity getAllCoursesAndFilters(
             @RequestParam(required = false, name = "name")String courseName,
             @RequestParam(required = false, name = "town")String courseTown,
