@@ -23,15 +23,15 @@ public class Booking {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
-//    @ManyToOne
-//    @JsonIgnoreProperties(value = "bookings")
-//    @JoinColumn(name = "customer_id", nullable = false)
-//    private List<Customer> customers;
+    @ManyToOne
+    @JsonIgnoreProperties(value = "bookings")
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    public Booking(String date, Course course) {
+    public Booking(String date, Course course, Customer customer) {
         this.date = date;
         this.course = course;
-//        this.customers = new ArrayList<>();
+        this.customer = customer;
     }
 
     public Booking(){
@@ -62,12 +62,12 @@ public class Booking {
         this.course = course;
     }
 
-//    public List<Customer> getCustomers() {
-//        return customers;
-//    }
-//
-//    public void setCustomers(List<Customer> customers) {
-//        this.customers = customers;
-//    }
+    public Customer getCustomers() {
+        return customer;
+    }
+
+    public void setCustomers(Customer customer) {
+        this.customer = customer;
+    }
 }
 
