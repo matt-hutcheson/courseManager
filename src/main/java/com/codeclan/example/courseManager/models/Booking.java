@@ -1,6 +1,7 @@
 package com.codeclan.example.courseManager.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,18 +18,20 @@ public class Booking {
     @Column
     private String date;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
-    private List<Course> courses;
+    @ManyToOne
+    @JsonIgnoreProperties(value = "bookings")
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
-    private List<Customer> customers;
+//    @ManyToOne
+//    @JsonIgnoreProperties(value = "bookings")
+//    @JoinColumn(name = "customer_id", nullable = false)
+//    private List<Customer> customers;
 
-    public Booking(String date, List<Course> courses, List<Customer> customers) {
+    public Booking(String date, Course course) {
         this.date = date;
-        this.courses = new ArrayList<>();
-        this.customers = new ArrayList<>();
+        this.course = course;
+//        this.customers = new ArrayList<>();
     }
 
     public Booking(){
@@ -51,20 +54,20 @@ public class Booking {
         this.date = date;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
+//    public List<Customer> getCustomers() {
+//        return customers;
+//    }
+//
+//    public void setCustomers(List<Customer> customers) {
+//        this.customers = customers;
+//    }
 }
 
